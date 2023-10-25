@@ -34,3 +34,15 @@ class TaskForm(forms.ModelForm):
             instance.save()
         return instance
     
+
+class TaskSearchForm(forms.Form):
+    search_query = forms.CharField(required=False, widget=forms.TextInput(attrs={'class':'block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500'}))
+
+    creation_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date', 'class':'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500'}))
+
+    due_date = forms.DateField(required=False, widget=forms.TextInput(attrs={'type': 'date', 'class':'bg-gray-50 my-5 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500'}))
+
+    priority = forms.ChoiceField(choices=[('', 'Select Priority'), ('low', 'Low'), ('medium', 'Medium'), ('high', 'High')],widget=forms.Select(attrs={'class': 'bg-gray-50 border my-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500'}) ,required=False)
+
+    is_complete = forms.BooleanField(required=False, widget=forms.CheckboxInput(attrs={'class': 'w-4 h-4 my-5 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-white dark:border-gray-600'}))
+    

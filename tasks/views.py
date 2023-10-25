@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
-from .forms import TaskForm, TaskImageForm
+from .forms import TaskForm, TaskImageForm, TaskSearchForm
 from django.urls import reverse_lazy
 
 
@@ -57,8 +57,31 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
 
     def get_queryset(self):
-        # Filter tasks by the currently logged-in user
-        return Task.objects.filter(user=self.request.user).order_by('-priority')  # Order by priority descending
+        queryset = Task.objects.filter(user=self.request.user).order_by('-priority')
+        form = TaskSearchForm(self.request.GET)
+        if form.is_valid():
+            search_query = form.cleaned_data.get('search_query')
+            creation_date = form.cleaned_data.get('creation_date')
+            due_date = form.cleaned_data.get('due_date')
+            priority = form.cleaned_data.get('priority')
+            is_complete = form.cleaned_data.get('is_complete')
+            
+            if search_query:
+                queryset = queryset.filter(title__icontains=search_query)
+            if creation_date:
+                queryset = queryset.filter(created_at__date=creation_date)
+            if due_date:
+                queryset = queryset.filter(due_date=due_date)
+            if priority:
+                queryset = queryset.filter(priority=priority)
+            if is_complete is not None:
+                queryset = queryset.filter(is_complete=is_complete)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = TaskSearchForm(self.request.GET)
+        return context
     
 class TaskDetailsView(DetailView):
     model = Task
