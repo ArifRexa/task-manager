@@ -7,6 +7,8 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
 from .forms import TaskForm, TaskImageForm, TaskSearchForm
+from rest_framework import generics, viewsets
+from .serializers import TaskSerializer, TaskImageSerializer
 from django.urls import reverse_lazy
 
 
@@ -28,7 +30,7 @@ from django.urls import reverse_lazy
 #         image_form = TaskImageForm()
 #     return render(request, 'add.html', {'product_form': product_form, 'image_form': image_form})
 
-
+#=================================== Add New Task =================================
 class AddTaskView(View):
     template_name = 'add.html'
 
@@ -50,6 +52,7 @@ class AddTaskView(View):
         return render(request, self.template_name, {'product_form': product_form, 'image_form': image_form})
 
 
+#=================================== Task List =================================
 
 class TaskList(LoginRequiredMixin, ListView):
     model = Task
@@ -96,6 +99,7 @@ class TaskDetailsView(DetailView):
 
         return context
     
+#=================================== Complete Task =================================
 
 class CompleteTaskView(View):
     template_name = 'complete.html'
@@ -108,6 +112,7 @@ class CompleteTaskView(View):
         return render(request, self.template_name, {'task': task})
     
 
+#=================================== Edit Task =================================
 
 class EditTaskView(LoginRequiredMixin, View):
     template_name = 'edit.html'
@@ -146,6 +151,7 @@ class EditTaskView(LoginRequiredMixin, View):
 
 
 
+#=================================== Delete image =================================
 
 # def delete_image(request, task_id, image_id):
 #     task = get_object_or_404(Task, id=task_id)
@@ -169,6 +175,7 @@ class DeleteImageView(View):
         return redirect('edit-task', task_id=task.id)
 
 
+#=================================== Delete Task =================================
 
 class DeleteTaskView(View):
     template_name = 'delete.html'
@@ -182,3 +189,23 @@ class DeleteTaskView(View):
         task.delete()
         messages.success(request, 'Task deleted successfully.')
         return redirect('tasklist')
+
+
+#=================================== API =================================
+class TaskListCreateAPIView(viewsets.ModelViewSet):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
+# class TaskRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = Task.objects.all()
+#     serializer_class = TaskSerializer
+
+
+
+class TaskImageListCreateAPIView(viewsets.ModelViewSet):
+    queryset = TaskImage.objects.all()
+    serializer_class = TaskImageSerializer
+
+# class TaskImageRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = TaskImage.objects.all()
+#     serializer_class = TaskImageSerializer
