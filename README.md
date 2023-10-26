@@ -12,3 +12,53 @@ This is a task management web application built with Django that allows multiple
 - Final Steps
 - Setup
 - Git Version Control
+
+# Setup
+### Git Version Control
+Clone the repository to your local machine using the following command:
+```bash
+git clone https://github.com/your-username/task-manager.git
+```
+### Environment Variables
+Create a .env file in the project directory to store sensitive information such as Django secret key and database credentials. Here's an example of the .env file:
+```bash
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+DB_NAME=your_database_name
+DB_USER=your_database_user
+DB_PASSWORD=your_database_password
+DB_HOST=localhost
+DB_PORT=5432
+```
+### Running the Project
+- Navigate to the project directory:
+```bash
+cd task-manager
+```
+- Create a virtual environment (optional but recommended):
+```bash
+python -m venv venv
+```
+- Activate the virtual environment:
+```bash
+venv\Scripts\activate
+```
+- Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+- Apply migrations:
+```bash
+python manage.py migrate
+```
+
+- Create a superuser (admin) account (optional but recommended):
+```bash
+python manage.py createsuperuser
+```
+
+- Start the development server:
+```bash
+python manage.py runserver
+```
