@@ -28,10 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/tasks/'
 LOGIN_URL = '/login/'
 
-
+TIME_ZONE = 'Asia/Dhaka'
 # Application definition
 
 INSTALLED_APPS = [

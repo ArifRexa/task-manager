@@ -1,10 +1,48 @@
 {% extends "base.html" %}
 {% block title %}
 Home
-  
+
 {% endblock title %}
 
 {% block content %}
-This is home page
-  
+
+
+<div class="container mt-5 mx-auto w-3/4">
+    <h1 class="text-4xl font-bold my-12 text-center">Welcome to Our Beautiful Home Page!</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-white p-4 shadow-md rounded-md">
+            <h2 class="text-xl font-bold mb-4">Create and categorize tasks</h2>
+            <p>In the realm of efficient task management, creating and categorizing tasks form the cornerstone of productivity. By seamlessly weaving together the ability to generate new tasks and categorize them effectively, individuals and teams can streamline their workflow processes. Task creation allows for the initiation of new assignments, enabling clear objectives and actionable items to be defined. Categorization, on the other hand, provides the invaluable ability to organize tasks into distinct groups.</p>
+        </div>
+
+        <div class="bg-white p-4 shadow-md rounded-md">
+            <h2 class="text-xl font-bold mb-4">Set due dates and priorities</h2>
+            <p>Setting due dates and priorities is the compass that guides task management towards successful completion. Due dates instill a sense of urgency, transforming tasks into time-bound objectives. By assigning specific deadlines, individuals and teams gain a clear understanding of when tasks need to be accomplished, fostering accountability and timely delivery. Prioritization, on the other hand, serves as the strategic roadmap.</p>
+        </div>
+
+        <div class="bg-white p-4 shadow-md rounded-md">
+            <h2 class="text-xl font-bold mb-4">Track your task progress</h2>
+            <p>Tracking task progress is akin to having a built-in compass that guides you through the intricate maze of tasks and projects. It offers real-time insights into the status of your assignments, allowing you to gauge how far you've come and what remains to be accomplished. By monitoring progress, individuals and teams can identify bottlenecks, celebrate achievements, and make informed decisions to stay on course. </p>
+        </div>
+    </div>
+
+    <div class="flex items-center p-4 mb-4 mt-10 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-yellow-300 dark:text-black opacity-75 dark:border-yellow-800"
+        role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor" viewBox="0 0 20 20">
+            <path
+                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span class="font-bold">Please Note:</span> To use this application, you need to create an account or sign
+            in if you already
+            have one. Your account ensures the security of your tasks and provides a personalized experience.
+        </div>
+    </div>
+</div>
+
+
+
 {% endblock content %}

@@ -27,21 +27,24 @@ Front Page
     
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-6 py-3">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-white dark:text-gray-400">
+                    <tr class="border-b dark:border-gray-700">
+                        <th scope="col" class="px-6 py-3 text-md text-black">
                             Title
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-md text-black">
                             Description
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-md text-black">
                             Due Date
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-md text-black">
                             Priority
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" class="px-6 py-3 text-md text-black">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-md text-black">
                             Action
                         </th>
                     </tr>
@@ -50,20 +53,30 @@ Front Page
                     {% for t in tasks %}
                       
                     
-                    <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr class="bg-white border-t dark:bg-white dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                             {{t.title}}
                         </th>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 dark:text-black">
                             
                             {{t.description|truncatechars:15}}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 dark:text-black">
                             {{t.due_date}}
                         </td>
-                        <td class="px-6 py-4">
+                        <td class="px-6 py-4 dark:text-black">
                             {{t.priority}}
                         </td>
+                        {% if t.is_complete %}
+                        <td class="px-6 py-4 dark:text-black">
+                            Completed
+                        </td>
+                        {% else %}
+                        
+                        <td class="px-6 py-4 dark:text-black">
+                            Pending
+                        </td>
+                        {% endif %}
                         <td class="px-6 py-4">
                             <a href="{% url 'task-details' t.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Details</a>
                         </td>

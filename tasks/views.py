@@ -42,14 +42,24 @@ class AddTaskView(View):
     def post(self, request):
         product_form = TaskForm(request.POST)
         image_form = TaskImageForm(request.POST, request.FILES)
-        if product_form.is_valid() and image_form.is_valid():
+
+        if product_form.is_valid() or image_form.is_valid():
             product = product_form.save(commit=False)
             product.user = request.user
+
+            # Check if is_complete field is present in the form data
+            if 'is_complete' in request.POST:
+                product.is_complete = request.POST['is_complete'] == 'on'  # Convert 'on' to True, else False
+            
+
             product.save()
+
             for img in request.FILES.getlist('images'):
                 TaskImage.objects.create(tasks=product, images=img)
             return redirect('tasklist')
+
         return render(request, self.template_name, {'product_form': product_form, 'image_form': image_form})
+
 
 
 #=================================== Task List =================================
@@ -60,7 +70,12 @@ class TaskList(LoginRequiredMixin, ListView):
     context_object_name = 'tasks'
 
     def get_queryset(self):
-        queryset = Task.objects.filter(user=self.request.user).order_by('-priority')
+        queryset = Task.objects.filter(user=self.request.user)
+        tasks = sorted(queryset, key=lambda task: (
+            0 if task.priority == 'high' else 1 if task.priority == 'medium' else 2,
+            task.priority
+        ))
+
         form = TaskSearchForm(self.request.GET)
         if form.is_valid():
             search_query = form.cleaned_data.get('search_query')
@@ -77,8 +92,16 @@ class TaskList(LoginRequiredMixin, ListView):
                 queryset = queryset.filter(due_date=due_date)
             if priority:
                 queryset = queryset.filter(priority=priority)
-            if is_complete is not None:
+            if is_complete:
                 queryset = queryset.filter(is_complete=is_complete)
+            # if is_complete is not None:
+            #     queryset = queryset.filter(is_complete=is_complete)
+
+            tasks = sorted(queryset, key=lambda task: (
+            0 if task.priority == 'high' else 1 if task.priority == 'medium' else 2,
+            task.priority
+            ))
+            return tasks
         return queryset
 
     def get_context_data(self, **kwargs):
