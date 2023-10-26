@@ -80,17 +80,21 @@ This endpoint retrieves all tasks from the database.
 
 ### Get a Specific Task
 Endpoint:
+```bash
 URL: tasks/api/tasks/{task_id}/
 URL: tasks/api/tasks-images/{id}
+```
 Method: GET
 
 
 ### Create a New Task
 Endpoint:
+```bash
 URL: tasks/api/tasks/
 URL: tasks/api/tasks-images/
-
+```
 Method: POST
+
 Required Parameters:
 title (string): Title of the task.
 description (string): Description of the task.
@@ -100,9 +104,10 @@ priority (string, options: "low", "medium", "high"): Priority level of the task.
 
 ### Update an Existing Task
 Endpoint:
+```bash
 URL: tasks/api/tasks/{task_id}/
 URL: tasks/api/tasks-images/{id}
-
+```
 Method: PUT or PATCH
 Required Parameters:
 title (string): Updated title of the task.
@@ -112,10 +117,10 @@ priority (string, options: "low", "medium", "high"): Updated priority level of t
 
 ### Delete a Task
 Endpoint:
-
+```bash
 URL: tasks/api/tasks/{task_id}/
 URL: tasks/api/tasks-images/{id}
-
+```
 Method: DELETE
 Functionality:
 This endpoint deletes the task identified by its task_id.
